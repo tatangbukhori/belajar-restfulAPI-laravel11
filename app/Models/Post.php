@@ -28,10 +28,19 @@ class Post extends Model
      * @return Attribute
      */
 
-    protected function image(): Attribute
+    // protected function image(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn(string $value) => ucfirst($value),
+    //     );
+    // }
+    public function getImageAttribute($value)
     {
-        return Attribute::make(
-            get: fn(string $value) => ucfirst($value),
-        );
+        // $value adalah isi dari kolom image di DB (nama file)
+        if (!$value) {
+            return null;
+        }
+
+        return asset('storage/posts/' . $value);
     }
 }
